@@ -194,7 +194,7 @@ void CovarianceFeaturesFilter::filter(PointView& view)
 void CovarianceFeaturesFilter::setDimensionality(PointView &view, const PointId &id, const KD3Index &kdi)
 {
     using namespace Eigen;
-    
+
     PointRef p = view.point(id);
 
     // find neighbors, either by radius or k nearest neighbors
@@ -220,7 +220,8 @@ void CovarianceFeaturesFilter::setDimensionality(PointView &view, const PointId 
     // perform the eigen decomposition
     SelfAdjointEigenSolver<Matrix3d> solver(B);
     if (solver.info() != Success)
-        throwError("Cannot perform eigen decomposition.");
+        // throwError("Cannot perform eigen decomposition.");
+        return;
 
     // Extract eigenvalues and eigenvectors in decreasing order (largest eigenvalue first)
     auto ev = solver.eigenvalues();
